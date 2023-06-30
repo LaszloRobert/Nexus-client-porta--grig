@@ -30,6 +30,7 @@ export default class OrderItemLayout extends React.Component {
         <h4 style={{ marginLeft: "10px" }}>
           <i className="fas fa-pencil-alt"></i> LAYOUT
         </h4>
+        {console.log("Asset" + this.props.asset)}
         {this.props.asset && (
           <div
             style={{
@@ -63,7 +64,9 @@ export default class OrderItemLayout extends React.Component {
                 </button>
               </>
             </div>
-            <div className="w-100">{`${this.props.asset.description} - ${this.props.asset.dimensions} - ${this.props.asset.qty}`}</div>
+            <div className="w-100">
+              <strong>TYPE</strong> - {this.props.asset.description} <strong>DIM</strong> - {this.props.asset.dimensions} <strong>QTY</strong> - {this.props.asset.qty}
+            </div>
             {/* <img
               onMouseEnter={this.hoverOn}
               onMouseLeave={this.hoverOff}
