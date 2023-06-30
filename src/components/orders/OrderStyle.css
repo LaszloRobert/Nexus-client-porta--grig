@@ -1,0 +1,8 @@
+.order-item-select-link {
+    cursor: pointer;
+}
+
+.order-item-select-link:hover {
+    color: gray;
+    text-decoration: underline;
+}
