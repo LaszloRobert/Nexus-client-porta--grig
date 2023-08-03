@@ -1,6 +1,6 @@
 //export const ORIGIN = "https://nexus.salemsports.com";
-//export const ORIGIN = "https://nexus.salemsports.com/NexusDev";
-export const ORIGIN = "http://localhost:1025";
+export const ORIGIN = "https://nexus.salemsports.com/NexusDev";
+// export const ORIGIN = "http://localhost:1025";
 // export const ORIGIN = "http://localhost:81";
 
 //api

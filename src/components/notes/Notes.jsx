@@ -99,7 +99,7 @@ export default class Notes extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: "36px" }}>
         <h4 style={{ marginLeft: "10px" }}>
           <i className="far fa-comment-dots"></i> NOTES
         </h4>

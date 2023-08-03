@@ -3,12 +3,27 @@ import OrderItem from "./OrderItem";
 
 const OrderOverview = props => (
   <div>
-    <h4 style={{ marginLeft: "10px" }}>
+    <div
+      style={{
+        display: "flex",
+        gap: "10px",
+        justifyItems: "center",
+        alignItems: "center",
+        marginBottom: "10px",
+        marginLeft: "10px",
+      }}
+    >
+      <i style={{ color: "red" }} className='fas fa-circle' ></i><span style={{ fontSize: "18px" }}>Review</span>
+      <i style={{ color: "yellow" }} className='fas fa-circle' ></i><span style={{ fontSize: "18px" }}>Rework</span>
+      <i style={{ color: "green" }} className='fas fa-circle' ></i><span style={{ fontSize: "18px" }}>Approved</span>
+    </div>
+    <h4 style={{ marginLeft: "10px" }} className="h4-style">
       <i className="fas fa-keyboard"></i> ORDER OVERVIEW
     </h4>
     <div
       style={{
         border: "10px solid #1c1c1c",
+        maxHeight: "600px",
         borderRadius: "10px",
         overflow: "auto"
       }}
@@ -17,90 +32,59 @@ const OrderOverview = props => (
         <thead className="thead-dark">
           <tr>
             <th
-              style={{
-                cursor: "pointer",
-                fontSize: "14px",
-                userSelect: "none"
-              }}
-              width="100px"
+              className="table-header-text-style width-100"
               onClick={props.sortByOrder}
             >
-              ORDER{" "}
-              {props.sort.orderUp === props.sort.orderDown && (
-                <i className="fas fa-sort"></i>
-              )}
-              {props.sort.orderUp && <i className="fas fa-sort-up"></i>}
-              {props.sort.orderDown && <i className="fas fa-sort-down"></i>}
+              <div className="display-flex-th">
+                ORDER{" "}
+                {props.sort.orderUp === props.sort.orderDown && (
+                  <i className="fas fa-sort"></i>
+                )}
+                {props.sort.orderUp && <i className="fas fa-sort-up"></i>}
+                {props.sort.orderDown && <i className="fas fa-sort-down"></i>}
+              </div>
             </th>
             <th
-              style={{
-                cursor: "pointer",
-                fontSize: "14px",
-                userSelect: "none"
-              }}
-              width="75px"
+              className="table-header-text-style width-75"
               onClick={props.sortByQty}
             >
-              QTY{" "}
-              {props.sort.qtyUp === props.sort.qtyDown && (
-                <i className="fas fa-sort"></i>
-              )}
-              {props.sort.qtyUp && <i className="fas fa-sort-up"></i>}
-              {props.sort.qtyDown && <i className="fas fa-sort-down"></i>}
+              <div className="display-flex-th">
+                QTY{" "}
+                {props.sort.qtyUp === props.sort.qtyDown && (
+                  <i className="fas fa-sort"></i>
+                )}
+                {props.sort.qtyUp && <i className="fas fa-sort-up"></i>}
+                {props.sort.qtyDown && <i className="fas fa-sort-down"></i>}
+              </div>
             </th>
             <th
-              style={{
-                cursor: "pointer",
-                fontSize: "14px",
-                userSelect: "none"
-              }}
-              width="150px"
+              className="table-header-text-style"
               onClick={props.sortByDescription}
             >
-              DESCRIPTION{" "}
-              {props.sort.descriptionUp === props.sort.descriptionDown && (
-                <i className="fas fa-sort"></i>
-              )}
-              {props.sort.descriptionUp && <i className="fas fa-sort-up"></i>}
-              {props.sort.descriptionDown && (
-                <i className="fas fa-sort-down"></i>
-              )}
+              <div className="display-flex-th">
+                DESCRIPTION{" "}
+                {props.sort.descriptionUp === props.sort.descriptionDown && (
+                  <i className="fas fa-sort"></i>
+                )}
+                {props.sort.descriptionUp && <i className="fas fa-sort-up"></i>}
+                {props.sort.descriptionDown && (
+                  <i className="fas fa-sort-down"></i>
+                )}
+              </div>
             </th>
             <th
-              style={{
-                cursor: "pointer",
-                fontSize: "14px",
-                userSelect: "none"
-              }}
-              width="150px"
+              className="table-header-text-style width-75"
               onClick={props.sortByDimensions}
             >
-              DIMENSIONS{" "}
-              {props.sort.dimensionsUp === props.sort.dimensionsDown && (
-                <i className="fas fa-sort"></i>
-              )}
-              {props.sort.dimensionsUp && <i className="fas fa-sort-up"></i>}
-              {props.sort.dimensionsDown && (
-                <i className="fas fa-sort-down"></i>
-              )}
+              <div className="display-flex-th">
+                STATUS{" "}
+                {props.sort.statusUp === props.sort.statusDown && (
+                  <i className="fas fa-sort"></i>
+                )}
+                {props.sort.statusUp && <i className="fas fa-sort-up"></i>}
+                {props.sort.statusDown && <i className="fas fa-sort-down"></i>}
+              </div>
             </th>
-            <th
-              style={{
-                cursor: "pointer",
-                fontSize: "14px",
-                userSelect: "none"
-              }}
-              width="130px"
-              onClick={props.sortByStatus}
-            >
-              STATUS{" "}
-              {props.sort.statusUp === props.sort.statusDown && (
-                <i className="fas fa-sort"></i>
-              )}
-              {props.sort.statusUp && <i className="fas fa-sort-up"></i>}
-              {props.sort.statusDown && <i className="fas fa-sort-down"></i>}
-            </th>
-            {/* <th>VERS</th> */}
           </tr>
         </thead>
         <tbody>
@@ -120,7 +104,7 @@ const OrderOverview = props => (
         </tbody>
       </table>
     </div>
-  </div>
+  </div >
 );
 
 export default OrderOverview;

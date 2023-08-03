@@ -702,6 +702,30 @@ export default class App extends React.Component {
     event.Notifications.length = 0;
   }
 
+  //Convert the pdf base64 into a blob that can be showed into the object for large pdfs
+  showLargePdfs() {
+    const pdfUint8Array = this.base64ToUint8Array(this.state.selectedAsset.image);
+    var pdfBlob = new Blob([pdfUint8Array], { type: "application/pdf" });
+    var pdfBlobUrl = URL.createObjectURL(pdfBlob);
+
+    return pdfBlobUrl;
+
+  }
+
+  // Utility function to convert base64 to Uint8Array
+  base64ToUint8Array(base64) {
+    console.log("base64ToUint8Array");
+    console.log(base64);
+    const data = base64.replace(/^data:application\/pdf;base64,/, '');
+    const binaryString = atob(data);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes;
+  }
+
 
   render() {
     const isChangePasswordEnabled = this.forgotPasswordSubmitted();
@@ -967,7 +991,7 @@ export default class App extends React.Component {
                   -1 && (
                     <object
                       className="img-fluid"
-                      data={this.state.selectedAsset.image}
+                      data={this.showLargePdfs()}
                       style={{
                         height: "100vh",
                         width: "95%",
