@@ -6,7 +6,6 @@ import OrderOverview from "./components/orders/OrderOverview";
 import OrderItemLayout from "./components/orders/OrderItemLayout";
 import Notes from "./components/notes/Notes";
 import Navigation from "./components/navigation/Navigation";
-import VersionsPreview from "./components/notes/VersionsPreview";
 import Login from "./components/account/Login";
 import OrderService from "./services/OrderService";
 import EventService from "./services/EventService";
@@ -25,7 +24,6 @@ export default class App extends React.Component {
     selectedAsset: null,
     selectedItem: null,
     user: {},
-    previewVersions: null,
     sortConditions: {},
     searchText: "",
     inviteEmail: "",
@@ -121,7 +119,6 @@ export default class App extends React.Component {
         this.sortOrders
       );
     });
-
   };
 
   loadNotificationForSelectedEvent = (id) => {
@@ -318,14 +315,6 @@ export default class App extends React.Component {
 
   closePreview = () => {
     this.setState({ preview: false });
-  };
-
-  displayVersionsPreview = () => {
-    this.setState({ previewVersions: true });
-  };
-
-  closePreviewVersions = () => {
-    this.setState({ previewVersions: false });
   };
 
   init = () => {
@@ -1004,14 +993,6 @@ export default class App extends React.Component {
                   )}
               </div>
             )}
-            {this.state.previewVersions && (
-              <div className="nexus-modal-dark">
-                <VersionsPreview
-                  versions={selectedAsset.versions}
-                  close={this.closePreviewVersions}
-                />
-              </div>
-            )}
 
             <div className="container-fluid">
               {this.state.noEventsMessage !== "" ? (
@@ -1174,7 +1155,6 @@ export default class App extends React.Component {
                         asset={selectedAsset}
                         user={user}
                         saveDraft={this.saveDraft}
-                        displayVersionsPreview={this.displayVersionsPreview}
                         participant={
                           this.state.user.roles.filter(
                             (r) => r.eventID === this.state.selectedEvent.id
