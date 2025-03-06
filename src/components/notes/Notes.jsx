@@ -38,10 +38,10 @@ export default class Notes extends React.Component {
   }
 
   sendReply = (id) => {
-    const date = new Date();
+    const date = new Date().toISOString();
     const reply = {
       user: `${this.props.user.firstName} ${this.props.user.lastName}`,
-      date: `${moment(date).format("MM/DD/YY hh:mm A")}`,
+      date: `${moment(date).format("MM/DD/YY hh:mm:ss A")}`,
       message: this.state.replyMessage.trim(),
       versionId: this.props.asset.versions[0].id,
       layoutId: this.props.asset.id,
@@ -65,10 +65,10 @@ export default class Notes extends React.Component {
   };
 
   addComment = () => {
-    const date = new Date();
+    const date = new Date().toISOString();
     const comment = {
       user: `${this.props.user.firstName} ${this.props.user.lastName}`,
-      date: `${moment(date).format("MM/DD/YY hh:mm A")}`,
+      date: `${moment(date).format("MM/DD/YY hh:mm:ss A")}`,
       message: this.state.message.trim(),
       isUpload: !!this.state.selectedFile,
       filePayload: this.state.selectedFile,

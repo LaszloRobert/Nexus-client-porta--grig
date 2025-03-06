@@ -72,6 +72,7 @@ export default class App extends React.Component {
   };
 
   addComment = (comment) => {
+    console.log("Add comment", comment);
     CommentService.addComment(comment).then((serverComment) => {
       if (serverComment.message === "Authorize") {
         comment.id = serverComment.data;
@@ -119,6 +120,7 @@ export default class App extends React.Component {
         this.sortOrders
       );
     });
+
   };
 
   loadNotificationForSelectedEvent = (id) => {
@@ -144,12 +146,12 @@ export default class App extends React.Component {
       return;
     }
 
-    const date = new Date();
+    const date = new Date().toISOString();
     let comment = {
       isAction: true,
       isApprove: true,
       user: `${this.state.user.firstName} ${this.state.user.lastName}`,
-      date: date,
+      date: `${moment(date).format("MM/DD/YY hh:mm:ss A")}`,
       message: `APPROVED Layout ${this.state.selectedItem.order}-${this.state.selectedAsset.id + 1
         }`,
       versionId: this.state.selectedAsset.versions[0].id,
@@ -165,7 +167,8 @@ export default class App extends React.Component {
       comment,
       ...this.state.selectedAsset.versions[0].comments,
     ];
-    CommentService.addComment(comment);
+    console.log("approve", comment);
+    CommentService.addComment(comment)
     newAsset.approved = true;
 
     let updatedItem = Object.assign({}, this.state.selectedItem);
@@ -185,12 +188,12 @@ export default class App extends React.Component {
   };
 
   reworkAsset = () => {
-    const date = new Date();
+    const date = new Date().toISOString();
     let comment = {
       isAction: true,
       isRework: true,
       user: `${this.state.user.firstName} ${this.state.user.lastName}`,
-      date: `${moment(date).format("MM/DD/YY hh:mm A")}`,
+      date: `${moment(date).format("MM/DD/YY hh:mm:ss A")}`,
       message: `REWORK Layout ${this.state.selectedItem.order}-${this.state.selectedAsset.id}`,
       versionId: this.state.selectedAsset.versions[0].id,
       layoutId: this.state.selectedAsset.id,
@@ -238,6 +241,7 @@ export default class App extends React.Component {
         data[0].selected = true;
       }
       asset.versions = data;
+
       DocumentService.getDocument(asset.documentId).then((payload) => {
         asset.image = payload;
         this.setState({
@@ -320,10 +324,11 @@ export default class App extends React.Component {
   init = () => {
     this.setState(this.initialState, () => {
       EventService.getEvents().then((events) => {
+
         this.setState({ events: events }, () => {
           if (
             this.state.events &&
-            this.state.events[0].name !== " NO EVENT" &&
+            (this.state.events[0].name !== " NO EVENT" && this.state.events[0].name !== "NO EVENT") &&
             this.state.events.length > 0
           ) {
             NotificationService.getNotifications(this.state.events[0].id).then(
@@ -346,6 +351,7 @@ export default class App extends React.Component {
               noEventsMessage: "This user is not participating in any event!",
             });
           }
+
           AuthService.getCurrentUser().then((userData) => {
             if (userData) {
               localStorage.setItem("User", JSON.stringify(userData));
@@ -355,6 +361,8 @@ export default class App extends React.Component {
               this.setState({ isAuth: false });
             }
           });
+
+
 
         });
       });
@@ -703,8 +711,6 @@ export default class App extends React.Component {
 
   // Utility function to convert base64 to Uint8Array
   base64ToUint8Array(base64) {
-    console.log("base64ToUint8Array");
-    console.log(base64);
     const data = base64.replace(/^data:application\/pdf;base64,/, '');
     const binaryString = atob(data);
     const len = binaryString.length;
@@ -739,6 +745,7 @@ export default class App extends React.Component {
       <>
         {!this.state.isAuth ? (
           <Login login={this.init} />
+
         ) : (
           <>
             <Navigation
