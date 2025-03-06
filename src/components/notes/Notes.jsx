@@ -38,10 +38,10 @@ export default class Notes extends React.Component {
   }
 
   sendReply = (id) => {
-    const date = new Date();
+    const date = new Date().toISOString();
     const reply = {
       user: `${this.props.user.firstName} ${this.props.user.lastName}`,
-      date: `${moment(date).format("MM/DD/YY hh:mm A")}`,
+      date: `${moment(date).format("MM/DD/YY hh:mm:ss A")}`,
       message: this.state.replyMessage.trim(),
       versionId: this.props.asset.versions[0].id,
       layoutId: this.props.asset.id,
@@ -65,10 +65,10 @@ export default class Notes extends React.Component {
   };
 
   addComment = () => {
-    const date = new Date();
+    const date = new Date().toISOString();
     const comment = {
       user: `${this.props.user.firstName} ${this.props.user.lastName}`,
-      date: `${moment(date).format("MM/DD/YY hh:mm A")}`,
+      date: `${moment(date).format("MM/DD/YY hh:mm:ss A")}`,
       message: this.state.message.trim(),
       isUpload: !!this.state.selectedFile,
       filePayload: this.state.selectedFile,
@@ -99,7 +99,7 @@ export default class Notes extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ marginTop: "36px" }}>
         <h4 style={{ marginLeft: "10px" }}>
           <i className="far fa-comment-dots"></i> NOTES
         </h4>
@@ -112,9 +112,6 @@ export default class Notes extends React.Component {
           }}
         >
           <h6>IMAGE REVIEW </h6>
-          {/* { { <span><i className="fas fa-arrow-left"></i>  <i className="fas fa-arrow-right"></i></span>}</h6>} */
-
-          }
 
           <div className="btn-toolbar">
             <button
@@ -136,35 +133,16 @@ export default class Notes extends React.Component {
               Close
             </button>
           </div>
-          <div className="container-fluid">
-            VERSION{" "}
-            {this.props.asset.versions && (
-              <u key={this.props.asset.versions[0].id}>
-                <b>
-                  <span key={this.props.asset.versions[0].id}>
-                    {this.props.asset.versions[0].number}
-                  </span>
-                </b>
-              </u>
-            )}
-            {this.props.asset.versions.length > 1 && (
-              <span
-                style={{ cursor: "pointer", color: "#7a7707" }}
-                onClick={this.props.displayVersionsPreview}
-              >
-                {" --previous"}
-              </span>
-            )}
-          </div>
           <div
             style={{
               background: "#000",
               borderRadius: "10px",
               paddingBottom: "60px",
-              paddingTop: "10px"
+              paddingTop: "10px",
+              marginTop: "10px"
             }}
           >
-            <Comments comments={this.props.asset.versions[0].comments} onlyRead={this.props.asset.approved} replyValue={this.state.replyMessage} handleReplyOnChange={this.handleReplyOnChange} sendReply={this.sendReply} getCommentIdOnClick={this.getCommentIdOnClick} step={this.props.asset.step} />
+            <Comments versions={this.props.asset.versions} onlyRead={this.props.asset.approved} replyValue={this.state.replyMessage} handleReplyOnChange={this.handleReplyOnChange} sendReply={this.sendReply} getCommentIdOnClick={this.getCommentIdOnClick} step={this.props.asset.step} />
             {!this.props.asset.approved && this.props.asset.step === 310 && (
               <>
                 <hr />

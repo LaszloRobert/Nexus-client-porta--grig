@@ -16,7 +16,7 @@ function login(email, password) {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         },
-        body: `grant_type=password&UserName=${email}&Password=${password}`
+        body: `username=${email}&password=${password}`
     };
     return fetch(TOKEN_URL, requestOptions)
         .then(handleResponse)
@@ -31,6 +31,29 @@ function login(email, password) {
         })
         .catch(err => err);
 }
+
+
+// function login(email, password) {
+//     const requestOptions = {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/x-www-form-urlencoded"
+//         },
+//         body: `grant_type=password&UserName=${email}&Password=${password}`
+//     };
+//     return fetch(TOKEN_URL, requestOptions)
+//         .then(handleResponse)
+//         .then(response => {
+//             if (response) {
+//                 var date = Date.now() + response.expires_in * 1000;
+//                 response.expires_in = date;
+//                 localStorage.setItem("authData", JSON.stringify(response));
+//                 AUTH = response;
+//             }
+//             return response;
+//         })
+//         .catch(err => err);
+// }
 
 function logout() {
     //remove user from local storage to log user out
